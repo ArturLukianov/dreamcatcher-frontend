@@ -4,7 +4,7 @@ import { Diary } from "./pages/Diary";
 import MapGraph from "./pages/MapGraph";
 import MapStreet from "./pages/MapStreet";
 import Layout from "./layout";
-import FPV from "./pages/FPV";
+import FPV from "./pages/FPV/FPV";
 
 const router = createBrowserRouter(
   [

@@ -1,8 +1,8 @@
-import { PointerLockControls, Sky } from "@react-three/drei";
+import { Cloud, PointerLockControls, Sky } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React from "react";
 import { TextureLoader } from "three";
-import leatherImage from './leather.jpg';
+import Building from "./objects/Building/Building";
 
 function Ground() {
   return (
@@ -13,24 +13,14 @@ function Ground() {
   );
 }
 
-const texture = new TextureLoader().load(leatherImage)
-
-function Building(props: { position: number[] }) {
-  const { position } = props;
-  return (
-    <mesh position={[position[0], 0, position[1]]}>
-      <boxGeometry  args={[2,3,2]}/>
-      <meshBasicMaterial map={texture} />
-    </mesh>
-  );
-}
-
 export default function FPV() {
   return (
     <div id="fpv-canvas">
       <Canvas camera={{ fov: 50 }}>
         <PointerLockControls />
         <Sky sunPosition={[20, 20, 20]} />
+
+        <Cloud position={[0,50,0]} segments={50} bounds={[100, 10, 100]} volume={30} speed={0.01} color="white" opacity={0.1} />
         <ambientLight intensity={0.5} />
         <Ground />
         <Building position={[0, 0]} />

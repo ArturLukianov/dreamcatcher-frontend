@@ -20,6 +20,13 @@ body {
     margin: 0;
 }
 
+#fpv-canvas {
+    width: 100%;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 :root {
     --khaki: #c3a995ff;
     --beaver: #ab947eff;

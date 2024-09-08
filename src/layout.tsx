@@ -46,7 +46,7 @@ function Navbar() {
 
 const Logo = styled.h1`
 font-size: 30px;
-font-weight: regular;
+font-weight: normal;
 `
 
 const Header = styled.div`

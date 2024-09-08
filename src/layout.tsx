@@ -35,10 +35,13 @@ function Navbar() {
             display: flex;
             flex-direction: row;
             gap: 10px;
+            background-color: var(--bg-secondary);
+            padding: 5px;
+            border-radius: 5px;
         `}>
-                <NavbarLink to='' text='Diary' icon={<NotebookText/>} />
-                <NavbarLink to='map/graph' text='Graph' icon={<Waypoints/>} />
-                <NavbarLink to='map/street' text='Street' icon={<Map/>}/>
+                <NavbarLink to='/' text='Diary' icon={<NotebookText/>} />
+                <NavbarLink to='/map/graph' text='Graph' icon={<Waypoints/>} />
+                <NavbarLink to='/map/street' text='Street' icon={<Map/>}/>
             </div>
         </div>
     )

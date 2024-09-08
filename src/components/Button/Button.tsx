@@ -12,6 +12,12 @@ export default function Button(props: {text?: string, style?: string, icon: Reac
             display: flex;
             padding: 5px;
             border-radius: 2px;
+            color: var(--primary);
+            background-color: var(--opaque);
+            cursor: pointer;
+            &:hover {
+                color: var(--primary-focus);
+            }
         `}>
             {icon}
         </button>

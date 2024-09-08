@@ -1,15 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=SUSE:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 * {
-    font-family: SUSE, Helvetica, sans-serif;
+    font-family: Inter, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+body, html {
+    background-color: var(--bg-page);
+    padding: 0;
+    margin: 0;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+body {
+    height: 100vh;
     padding: 0;
     margin: 0;
 }
 
 :root {
-    --primary: #deadbe;
+    --khaki: #c3a995ff;
+    --beaver: #ab947eff;
+    --umber: #6f5e53ff;
+    --beaver-2: #8a7968ff;
+    --rose-ebony: #593d3bff;
+    --raisin-black: #252323ff;
+    --slate-gray: #70798cff;
+    --isabelline: #f5f1edff;
+    --bone: #dad2bcff;
+    --khaki: #a99985ff;
+
+    --opaque: rgba(0, 0, 0, 0);
+
+    prop: #dfd6a7 #f7ce5b #f7b05b #af9b46 #1f1300;
+
+/*    --primary: #deadbe;
     --secondary: #111;
     --bg-primary: #edadeb;
     --bg-secondary: #eeeeee;
-    --bg-page: #f0f0f0;
+    --bg-page: #f0f0f0;*/
+/*    --primary: ;*/
+    --primary: #1f1300;
+    --primary-focus: #603b00;
+    --secondary: #1f1300;
+    --bg-primary: blue;
+    --bg-secondary: #c8b976;
+    --bg-secondary-focus: purple;
+    --bg-page: #dfd6a7;
+
+/*    --secondary: ;*/
 }

@@ -1,8 +1,38 @@
 import React from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Diary } from './pages/Diary';
+import MapGraph from './pages/MapGraph';
+import MapStreet from './pages/MapStreet';
+import Layout from './layout';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "",
+        element: <Diary />
+      },
+      {
+        path: "map/graph",
+        element: <MapGraph />,
+      },
+      {
+        path: "map/street",
+        element: <MapStreet />,
+      }
+    ]
+  },
+], {
+  basename: "/dreamcatcher-frontend"
+});
 
 const App = () => {
   return (
-    <h1>Hello world для проекта - dreamcatcher-frontend</h1>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
   );
 };
 

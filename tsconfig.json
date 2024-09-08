@@ -11,15 +11,22 @@
         "module": "esnext",
         "moduleResolution": "node",
         "target": "es6",
-        "jsx": "react",
-        "typeRoots": ["node_modules/@types", "src/typings"],
-        "types" : ["webpack-env", "node"],
-        "resolveJsonModule": true
+        "jsx": "react-jsx",
+        "typeRoots": [
+            "node_modules/@types",
+            "src/typings"
+        ],
+        "types": [
+            "webpack-env",
+            "node"
+        ],
+        "resolveJsonModule": true,
+        "jsxImportSource": "@emotion/react"
     },
     "exclude": [
         "node_modules",
         "**/*.test.ts",
         "**/*.test.tsx",
         "node_modules/@types/jest"
-    ]        
+    ]
 }

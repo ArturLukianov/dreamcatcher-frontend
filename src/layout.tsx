@@ -55,6 +55,7 @@ flex-direction: row;
 align-items: center;
 gap: 1%;
 width: 100%;
+margin-bottom: 20px;
 `
 
 export default function Layout() {

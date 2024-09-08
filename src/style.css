@@ -3,3 +3,11 @@
     padding: 0;
     margin: 0;
 }
+
+:root {
+    --primary: #deadbe;
+    --secondary: #111;
+    --bg-primary: #edadeb;
+    --bg-secondary: #eeeeee;
+    --bg-page: #f0f0f0;
+}

@@ -32,7 +32,7 @@ function Navbar() {
     return (
         <div className={css`
             position: absolute;
-            width: 100%;
+            width: 90%;
             display: flex;
             justify-content: center;
         `}>
@@ -62,8 +62,10 @@ display: flex;
 flex-direction: row;
 align-items: center;
 gap: 1%;
-width: 100%;
+width: 90%;
 margin-bottom: 20px;
+margin-left: auto;
+margin-right: auto;
 `
 
 export default function Layout() {

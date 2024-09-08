@@ -45,10 +45,46 @@ body {
     --primary: #1f1300;
     --primary-focus: #603b00;
     --secondary: #1f1300;
-    --bg-primary: blue;
+    --bg-primary: #af9b46;
     --bg-secondary: #c8b976;
     --bg-secondary-focus: purple;
     --bg-page: #dfd6a7;
 
 /*    --secondary: ;*/
+}
+
+.slider {
+    background-color: var(--bg-page);
+    height: 41px;
+    top: 7px;
+    width: 45px;
+    position: absolute;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+.nav-item.active:nth-child(1) ~ .slider {
+    transform: translateX(0px);
+}
+
+.nav-item.active:nth-child(2) ~ .slider {
+    transform: translateX(45px);
+}
+
+.nav-item.active:nth-child(3) ~ .slider {
+    transform: translateX(90px);
+}
+
+/* Add dynamic positioning for hover effects */
+.nav-item:nth-child(1):hover ~ .slider {
+    transform: translateX(0px);
+}
+
+.nav-item:nth-child(2):hover ~ .slider {
+    transform: translateX(45px);
+}
+
+.nav-item:nth-child(3):hover ~ .slider {
+    transform: translateX(90px);
 }

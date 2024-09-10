@@ -37,6 +37,7 @@
     "homepage": "https://github.com/ArturLukianov/dreamcatcher-frontend#readme",
     "description": "",
     "devDependencies": {
-        "@types/webpack-env": "^1.18.5"
+        "@types/webpack-env": "^1.18.5",
+        "file-loader": "^6.2.0"
     }
 }

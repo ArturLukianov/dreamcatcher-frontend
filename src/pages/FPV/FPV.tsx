@@ -27,9 +27,7 @@ export default function FPV() {
         </Clouds>
         <ambientLight intensity={4.0} />
         <Ground />
-        <Grass />
-        <Building position={[0, 0]} />
-        <Building position={[5, 5]} />
+        <Building position={[-10, -10]} />
       </Canvas>
     </div>
   );

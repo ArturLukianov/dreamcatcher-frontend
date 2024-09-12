@@ -62,9 +62,9 @@ export default function Grass({
     return groundGeometry;
   }, [width]);
 
-  // useFrame(state => {
-  //   materialRef.current.uniforms.time.value = state.clock.elapsedTime / 4;
-  // });
+  useFrame(state => {
+    materialRef.current.uniforms.time.value = state.clock.elapsedTime / 4;
+  });
 
   return (
     <group>
@@ -74,42 +74,41 @@ export default function Grass({
           index={baseGeometry.index}
           attributes-position={baseGeometry.attributes.position}
           attributes-uv={baseGeometry.attributes.uv}
+          frustumCulled={false}
         >
           <instancedBufferAttribute
-            attachObject={["attributes", "offset"]}
+            attach="attributes-offset"
             args={[new Float32Array(attributeData.offsets), 3]}
           />
           <instancedBufferAttribute
-            attachObject={["attributes", "orientation"]}
+            attach="attributes-orientation"
             args={[new Float32Array(attributeData.orientations), 4]}
           />
           <instancedBufferAttribute
-            attachObject={["attributes", "stretch"]}
+            attach="attributes-stretch"
             args={[new Float32Array(attributeData.stretches), 1]}
           />
           <instancedBufferAttribute
-            attachObject={["attributes", "halfRootAngleSin"]}
+            attach="attributes-halfRootAngleSin"
             args={[new Float32Array(attributeData.halfRootAngleSin), 1]}
           />
           <instancedBufferAttribute
-            attachObject={["attributes", "halfRootAngleCos"]}
+            attach="attributes-halfRootAngleCos"
             args={[new Float32Array(attributeData.halfRootAngleCos), 1]}
           />
         </instancedBufferGeometry>
-{/*        <rawShaderMaterial
-          attach="material"
+        <rawShaderMaterial
           ref={materialRef}
-          args={{
-            uniforms: {
-              map: { value: texture },
-              alphaMap: { value: alphaMap },
-              time: { type: "float", value: 0 }
-            },
-            vertexShader: getVertexSource(bladeOptions.height),
-            fragmentShader: fragmentSource,
-            side: THREE.DoubleSide
+          attach="material"
+          uniforms={{
+            map: {value: texture},
+            alphaMap: {value:alphaMap},
+            time: {type: "float", value: 0}
           }}
-        />*/}
+          vertexShader={getVertexSource(bladeOptions.height)}
+          fragmentShader={fragmentSource}
+          side={THREE.DoubleSide}
+        />
       </mesh>
       <mesh position={[0, 0, 0]} geometry={groundGeo} ref={groundRef}>
         <meshStandardMaterial attach="material" color="#000f00" />
@@ -211,7 +210,8 @@ function multiplyQuaternions(q1, q2) {
 
 function getYPosition(x, z) {
   var y = 2 * noise2D(x / 50, z / 50);
-  y += 4 * noise2D(x / 100, z / 100);
+  y += 1 * noise2D(x / 100, z / 100);
   y += 0.2 * noise2D(x / 10, z / 10);
+  y -= 2.0;
   return y;
 }

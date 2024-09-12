@@ -4,7 +4,7 @@ module.exports = {
   apiPath: "stubs/api",
   webpackConfig: {
     output: {
-      publicPath: `/static/dreamcatche/${process.env.VERSION || pkg.version}/`,
+      publicPath: `/static/dreamcatcher/${process.env.VERSION || pkg.version}/`,
     },
     module: {
       rules: [

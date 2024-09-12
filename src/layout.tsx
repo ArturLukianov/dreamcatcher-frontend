@@ -17,13 +17,13 @@ function NavbarLink(props: { to: string; text?: string; icon: ReactElement }) {
     <Link
       className={css`
         text-decoration: none;
-        color: var(--secondary);
-        padding: 5px;
+        color: var(--primary);
+        padding: 10px 10px;
         border-radius: 2px;
         font-size: 20px;
-      `}
-      to={to}
-    >
+        z-index: 2;
+        display: flex;
+        ` + " nav-item" + (isActive ? " active" : "")} to={to}>
       {icon}
     </Link>
   );
@@ -37,21 +37,22 @@ function Navbar() {
         width: 90%;
         display: flex;
         justify-content: center;
+        margin-top: 5px;
       `}
     >
       <div
         className={css`
           display: flex;
           flex-direction: row;
-          gap: 10px;
           background-color: var(--bg-secondary);
-          padding: 5px;
+          padding: 5px 8px;
           border-radius: 5px;
         `}
       >
-        <NavbarLink to="/" text="Diary" icon={<NotebookText />} />
-        <NavbarLink to="/map/graph" text="Graph" icon={<Waypoints />} />
-        <NavbarLink to="/map/street" text="Street" icon={<Map />} />
+        <NavbarLink to="/" text="Diary" icon={<NotebookText size={"25px"} />} />
+        <NavbarLink to="/map/graph" text="Graph" icon={<Waypoints size={"25px"} />} />
+        <NavbarLink to="/map/street" text="Street" icon={<Map size={"25px"} />} />
+        <div className="slider"></div>
       </div>
     </div>
   );

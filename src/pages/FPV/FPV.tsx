@@ -27,6 +27,7 @@ export default function FPV() {
         </Clouds>
         <ambientLight intensity={4.0} />
         <Ground />
+
         <Building position={[-10, -10]} />
       </Canvas>
     </div>

@@ -16,7 +16,7 @@
         "three": "^0.168.0"
     },
     "name": "dreamcatcher-frontend",
-    "version": "1.0.0",
+    "version": "1.2.0",
     "main": "./src/index.tsx",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -37,6 +37,7 @@
     "homepage": "https://github.com/ArturLukianov/dreamcatcher-frontend#readme",
     "description": "",
     "devDependencies": {
-        "@types/webpack-env": "^1.18.5"
+        "@types/webpack-env": "^1.18.5",
+        "file-loader": "^6.2.0"
     }
 }

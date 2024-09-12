@@ -26,13 +26,10 @@ export default function FPV() {
           <Cloud position={[0,500,0]} segments={100} bounds={[500, 10, 500]} volume={100} speed={0.01} color="white" opacity={0.1} concentrate={"random"} />
         </Clouds>
         <ambientLight intensity={4.0} />
-{/*        <Suspense fallback={null}>
-          <Grass width={10} instances={500000}/>
-        </Suspense>*/}
-        <Truss1/>
-        <Building position={[0, 0]} />
-        <Building position={[5, 5]} />
         <Stats />
+        <Ground />
+
+        <Building position={[-10, -10]} />
       </Canvas>
     </div>
   );

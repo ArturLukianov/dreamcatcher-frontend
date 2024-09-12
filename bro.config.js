@@ -6,6 +6,18 @@ module.exports = {
     output: {
       publicPath: `/static/${pkg.name}/${process.env.VERSION || pkg.version}/`,
     },
+    module: {
+      rules: [
+        {
+          test: /\.fbx$/,
+          use: [
+            {
+              loader: "file-loader",
+            },
+          ],
+        },
+      ],
+    },
   },
   /* use https://kc.admin.inno-js.ru/ to create config, navigations and features */
   navigations: {

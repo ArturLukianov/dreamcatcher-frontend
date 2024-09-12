@@ -32,7 +32,7 @@ const router = createBrowserRouter(
     },
   ],
   {
-    basename: "/dreamcatcher-frontend",
+    basename: "/dreamcatcher",
   }
 );
 

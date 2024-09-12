@@ -15,7 +15,7 @@
         "simplex-noise": "^4.0.3",
         "three": "^0.168.0"
     },
-    "name": "dreamcatcher-frontend",
+    "name": "dreamcatcher",
     "version": "1.2.4",
     "main": "./src/index.tsx",
     "scripts": {

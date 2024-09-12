@@ -21,14 +21,14 @@ module.exports = {
   },
   /* use https://kc.admin.inno-js.ru/ to create config, navigations and features */
   navigations: {
-    "dreamcatcher-frontend.main": "/dreamcatcher-frontend",
+    "dreamcatcher.main": "/dreamcatcher",
   },
   features: {
-    "dreamcatcher-frontend": {
+    "dreamcatcher": {
       // add your features here in the format [featureName]: { value: string }
     },
   },
   config: {
-    "dreamcatcher-frontend.api": "/api",
+    "dreamcatcher.api": "/api",
   },
 };

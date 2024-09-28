@@ -22,6 +22,9 @@ module.exports = {
   /* use https://kc.admin.inno-js.ru/ to create config, navigations and features */
   navigations: {
     "dreamcatcher.main": "/dreamcatcher",
+    "dreamcatcher.fpv": "/dreamcatcher/map/fpv",
+    "dreamcatcher.graph": "/dreamcatcher/map/graph",
+    "dreamcatcher.street": "/dreamcatcher/map/street"
   },
   features: {
     "dreamcatcher": {

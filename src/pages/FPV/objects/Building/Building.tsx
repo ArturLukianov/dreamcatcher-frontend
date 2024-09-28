@@ -16,6 +16,5 @@ export default function Building(props: { position: number[] }) {
   // );
 
   const fbx = useLoader(FBXLoader, building)
-  console.log(fbx);
   return <primitive object={fbx} position={[position[0], -1, position[1]]} />
 }

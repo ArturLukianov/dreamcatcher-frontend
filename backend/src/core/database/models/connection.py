@@ -5,5 +5,5 @@ from beanie import Document
 
 class Connection(Document):
     connection_id: UUID = uuid4()
-    location_1_id: UUID
-    locations_2_id: UUID
+    location_1_name: str
+    locations_2_name: str

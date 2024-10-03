@@ -1,0 +1,31 @@
+version: '3.8'
+
+volumes:
+  db_data:
+
+services:
+  mongodb:
+    container_name: mongodb
+    image: mongo:6-jammy
+    networks:
+      - db_network
+    volumes:
+      - db_data:/data/db
+
+  dream_catcher_app:
+    container_name: dream_catcher_app
+    build:
+      context: ../src
+      dockerfile: ./Dockerfile
+    command: uvicorn main:app --host 0.0.0.0
+    ports:
+      - "8001:8000"
+    networks:
+      - db_network
+    depends_on:
+      - mongodb
+
+networks:
+  db_network:
+    driver: bridge
+

@@ -5,7 +5,7 @@ from core.database.models import MODELS
 
 
 async def initialize_database():
-    client = AsyncIOMotorClient()
+    client = AsyncIOMotorClient("mongodb://mongodb:27017/")
     await init_beanie(
         database=client.DreamCatcher,
         document_models=MODELS

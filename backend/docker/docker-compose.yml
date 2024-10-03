@@ -15,7 +15,7 @@ services:
     build:
       context: ../src
       dockerfile: ../docker/Dockerfile
-    command: uvicorn main:app --host 109.172.89.144
+    command: uvicorn main:app --host 0.0.0.0
     ports:
       - "8001:8000"
     networks:

@@ -3,7 +3,7 @@ import { Edit, PlusCircle } from 'lucide-react';
 import React, { useState } from 'react';
 import Button from '../components/Button/Button';
 
-function DiaryEntry({ date, content }) {
+function DiaryEntry({ locationName, locationType, content }) {
     return (
         <div className={css`
             margin-bottom: 30px;
@@ -23,7 +23,7 @@ function DiaryEntry({ date, content }) {
                     border-bottom: 2px solid var(--secondary);
                     border-right: 2px solid var(--secondary);
                     padding-right: 4px;
-                `}>{date}</h2>
+                `}>{locationName} ({locationType})</h2>
                 <div className={css` `}>
                     <Button icon={<Edit />}/>
                 </div>
@@ -43,7 +43,7 @@ function DiaryEntry({ date, content }) {
 
 export function Diary() {
     const [diaryEntries, setDiaryEntries] = useState([]);
-    const [newEntry, setNewEntry] = useState({ date: '', content: '', locationName: '', locationType: '' });
+    const [newEntry, setNewEntry] = useState({ content: '', locationName: '', locationType: '' });
     const [error, setError] = useState('');
 
     const handleInputChange = (e) => {
@@ -55,14 +55,12 @@ export function Diary() {
         e.preventDefault();
 
         try {
-            const response = await fetch('https://vl-api.ru/diary_entry', {
+            const response = await fetch('/diary_entry', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    date: newEntry.date,
-                    content: newEntry.content,
                     location_name: newEntry.locationName,
                     location_type: newEntry.locationType
                 })
@@ -70,8 +68,8 @@ export function Diary() {
 
             if (response.ok) {
                 const createdEntry = await response.json();
-                setDiaryEntries([...diaryEntries, createdEntry]); // Добавляем новую запись в массив
-                setNewEntry({ date: '', content: '', locationName: '', locationType: '' }); // Очищаем форму
+                setDiaryEntries([...diaryEntries, { ...createdEntry, content: newEntry.content }]); // Добавляем новую запись в массив
+                setNewEntry({ content: '', locationName: '', locationType: '' }); // Очищаем форму
             } else {
                 setError('Ошибка при создании записи');
             }
@@ -91,7 +89,12 @@ export function Diary() {
             <div>
                 {/* Список записей в дневнике */}
                 {diaryEntries.map((entry, index) => (
-                    <DiaryEntry key={index} date={entry.date} content={entry.content} />
+                    <DiaryEntry
+                        key={index}
+                        locationName={entry.location_name}
+                        locationType={entry.location_type}
+                        content={entry.content}
+                    />
                 ))}
             </div>
             <div>
@@ -101,15 +104,6 @@ export function Diary() {
                     flex-direction: column;
                     gap: 10px;
                 `}>
-                    <input
-                        type="text"
-                        name="date"
-                        value={newEntry.date}
-                        onChange={handleInputChange}
-                        placeholder="Дата"
-                        required
-                        className={css`padding: 10px;`}
-                    />
                     <textarea
                         name="content"
                         value={newEntry.content}

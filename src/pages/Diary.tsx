@@ -1,9 +1,9 @@
 import { css } from '@emotion/css';
 import { Edit, PlusCircle } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../components/Button/Button';
 
-function DiaryEntry() {
+function DiaryEntry({ date, content }) {
     return (
         <div className={css`
             margin-bottom: 30px;
@@ -23,10 +23,8 @@ function DiaryEntry() {
                     border-bottom: 2px solid var(--secondary);
                     border-right: 2px solid var(--secondary);
                     padding-right: 4px;
-                `}>10.09.2024</h2>
-                <div className={css`
-
-                `}>
+                `}>{date}</h2>
+                <div className={css` `}>
                     <Button icon={<Edit />}/>
                 </div>
             </div>
@@ -37,16 +35,51 @@ function DiaryEntry() {
             `}>
                 <p className={css`
                         color: var(--secondary);
-                    `}>Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать несколько абзацев более менее осмысленного текста рыбы на русском языке, а начинающему оратору отточить навык публичных выступлений в домашних условиях. При создании генератора мы использовали небезизвестный универсальный код речей. Текст генерируется абзацами случайным образом от двух до десяти предложений в абзаце, что позволяет сделать текст более привлекательным и живым для визуально-слухового восприятия.
-
-                По своей сути рыбатекст является альтернативой традиционному lorem ipsum, который вызывает у некторых людей недоумение при попытках прочитать рыбу текст. В отличии от lorem ipsum, текст рыба на русском языке наполнит любой макет непонятным смыслом и придаст неповторимый колорит советских времен.
-                </p>
+                    `}>{content}</p>
             </div>
         </div>
-    )
+    );
 }
 
 export function Diary() {
+    const [diaryEntries, setDiaryEntries] = useState([]);
+    const [newEntry, setNewEntry] = useState({ date: '', content: '', locationName: '', locationType: '' });
+    const [error, setError] = useState('');
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setNewEntry({ ...newEntry, [name]: value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('https://vl-api.ru/diary_entry', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: newEntry.date,
+                    content: newEntry.content,
+                    location_name: newEntry.locationName,
+                    location_type: newEntry.locationType
+                })
+            });
+
+            if (response.ok) {
+                const createdEntry = await response.json();
+                setDiaryEntries([...diaryEntries, createdEntry]); // Добавляем новую запись в массив
+                setNewEntry({ date: '', content: '', locationName: '', locationType: '' }); // Очищаем форму
+            } else {
+                setError('Ошибка при создании записи');
+            }
+        } catch (error) {
+            setError('Произошла ошибка при соединении с сервером');
+        }
+    };
+
     return (
         <div className={css`
             display: flex;
@@ -56,13 +89,59 @@ export function Diary() {
             gap: 20px;
         `}>
             <div>
-                <DiaryEntry />
-                <DiaryEntry />
-                <DiaryEntry />
+                {/* Список записей в дневнике */}
+                {diaryEntries.map((entry, index) => (
+                    <DiaryEntry key={index} date={entry.date} content={entry.content} />
+                ))}
             </div>
             <div>
-                <Button icon={<PlusCircle />}/>
+                {/* Кнопка для создания новой записи */}
+                <form onSubmit={handleSubmit} className={css`
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                `}>
+                    <input
+                        type="text"
+                        name="date"
+                        value={newEntry.date}
+                        onChange={handleInputChange}
+                        placeholder="Дата"
+                        required
+                        className={css`padding: 10px;`}
+                    />
+                    <textarea
+                        name="content"
+                        value={newEntry.content}
+                        onChange={handleInputChange}
+                        placeholder="Запись"
+                        required
+                        className={css`padding: 10px;`}
+                    />
+                    <input
+                        type="text"
+                        name="locationName"
+                        value={newEntry.locationName}
+                        onChange={handleInputChange}
+                        placeholder="Название места"
+                        required
+                        className={css`padding: 10px;`}
+                    />
+                    <input
+                        type="text"
+                        name="locationType"
+                        value={newEntry.locationType}
+                        onChange={handleInputChange}
+                        placeholder="Тип места"
+                        required
+                        className={css`padding: 10px;`}
+                    />
+                    <Button icon={<PlusCircle />} type="submit" />
+                </form>
+
+                {/* Ошибки */}
+                {error && <p className={css`color: red;`}>{error}</p>}
             </div>
         </div>
-    )
+    );
 }

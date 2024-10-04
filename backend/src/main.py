@@ -20,7 +20,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-origins = ["https://dev.bro-js.ru/"]
+origins = ["https://dev.bro-js.ru/", "https://dev.bro-js.ru/dreamcatcher"]
 
 app.add_middleware(
     CORSMiddleware,

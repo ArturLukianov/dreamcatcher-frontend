@@ -43,7 +43,7 @@ function DiaryEntry({ locationName, locationType, content }) {
 
 export function Diary() {
     const [diaryEntries, setDiaryEntries] = useState([]);
-    const [newEntry, setNewEntry] = useState({ content: '', locationName: '', locationType: '' });
+    const [newEntry, setNewEntry] = useState({ locationName: '', locationType: '' });
     const [error, setError] = useState('');
 
     const handleInputChange = (e) => {
@@ -55,7 +55,7 @@ export function Diary() {
         e.preventDefault();
 
         try {
-            const response = await fetch('/diary_entry', {
+            const response = await fetch('https://vl-api.ru/diary_entry', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ export function Diary() {
             if (response.ok) {
                 const createdEntry = await response.json();
                 setDiaryEntries([...diaryEntries, { ...createdEntry, content: newEntry.content }]); // Добавляем новую запись в массив
-                setNewEntry({ content: '', locationName: '', locationType: '' }); // Очищаем форму
+                setNewEntry({ locationName: '', locationType: '' }); // Очищаем форму
             } else {
                 setError('Ошибка при создании записи');
             }
@@ -104,14 +104,6 @@ export function Diary() {
                     flex-direction: column;
                     gap: 10px;
                 `}>
-                    <textarea
-                        name="content"
-                        value={newEntry.content}
-                        onChange={handleInputChange}
-                        placeholder="Запись"
-                        required
-                        className={css`padding: 10px;`}
-                    />
                     <input
                         type="text"
                         name="locationName"

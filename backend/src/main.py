@@ -31,7 +31,7 @@ app.add_middleware(
 
 app.add_middleware(
     TrustedHostMiddleware,
-    allowed_hosts=["https://dev.bro-js.ru/", "https://dev.bro-js.ru/dreamcatcher", "localhost"]
+    allowed_hosts=["https://dev.bro-js.ru", "localhost", "dev.bro-js.ru"]
 )
 
 app.include_router(diary_entry_router)

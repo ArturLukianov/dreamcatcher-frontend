@@ -1,6 +1,6 @@
 import { css } from '@emotion/css';
 import { Edit, PlusCircle } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../components/Button/Button';
 
 function DiaryEntry({ locationName, locationType, content }) {
@@ -45,6 +45,26 @@ export function Diary() {
     const [diaryEntries, setDiaryEntries] = useState([]);
     const [newEntry, setNewEntry] = useState({ locationName: '', locationType: '' });
     const [error, setError] = useState('');
+
+     // Функция для получения всех записей
+     const fetchDiaryEntries = async () => {
+        try {
+            const response = await fetch('https://vl-api.ru/all_diary_entries');
+            if (response.ok) {
+                const data = await response.json();
+                setDiaryEntries(data);  // Заполняем записи с сервера
+            } else {
+                setError('Ошибка при получении записей');
+            }
+        } catch (error) {
+            setError('Произошла ошибка при соединении с сервером');
+        }
+    };
+
+    // Вызываем fetchDiaryEntries при загрузке компонента
+    useEffect(() => {
+        fetchDiaryEntries();
+    }, []);
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -93,7 +113,6 @@ export function Diary() {
                         key={index}
                         locationName={entry.location_name}
                         locationType={entry.location_type}
-                        content={entry.content}
                     />
                 ))}
             </div>

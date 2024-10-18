@@ -123,8 +123,6 @@ export function Diary() {
             padding: 20px;
         `}>
             <div className={css`
-                max-height: 400px;  /* Ограничиваем высоту */
-                overflow-y: auto;  /* Добавляем вертикальную прокрутку */
                 margin-bottom: 30px;
             `}>
                 {diaryEntries.map((entry, index) => (

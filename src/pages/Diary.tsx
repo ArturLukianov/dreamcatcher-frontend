@@ -6,36 +6,45 @@ import Button from '../components/Button/Button';
 function DiaryEntry({ locationName, locationType, content }) {
     return (
         <div className={css`
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             background-color: var(--bg-secondary);
-            border-radius: 2px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            &:hover {
+                transform: translateY(-4px);
+            }
         `}>
             <div className={css`
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            background-color: var(--bg-primary);
-            padding: 10px;
-                `}>
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: var(--bg-primary);
+                padding: 12px;
+                border-bottom: 2px solid var(--secondary);
+            `}>
                 <h2 className={css`
                     color: var(--secondary);
-                    font-weight: normal;
-                    border-bottom: 2px solid var(--secondary);
-                    border-right: 2px solid var(--secondary);
-                    padding-right: 4px;
+                    font-weight: bold;
+                    font-size: 18px;
+                    margin: 0;
                 `}>{locationName} ({locationType})</h2>
-                <div className={css` `}>
-                    <Button icon={<Edit />}/>
+                <div>
+                    <Button icon={<Edit />} />
                 </div>
             </div>
 
             <div className={css`
-                padding: 10px;
-                padding-top: 0px;
+                padding: 16px;
+                background-color: var(--bg-light);
             `}>
                 <p className={css`
-                        color: var(--secondary);
-                    `}>{content}</p>
+                    color: var(--secondary);
+                    margin: 0;
+                    font-size: 16px;
+                    line-height: 1.5;
+                `}>{content}</p>
             </div>
         </div>
     );
@@ -46,13 +55,12 @@ export function Diary() {
     const [newEntry, setNewEntry] = useState({ locationName: '', locationType: '' });
     const [error, setError] = useState('');
 
-     // Функция для получения всех записей
-     const fetchDiaryEntries = async () => {
+    const fetchDiaryEntries = async () => {
         try {
             const response = await fetch('https://vl-api.ru/all_diary_entries');
             if (response.ok) {
                 const data = await response.json();
-                setDiaryEntries(data);  // Заполняем записи с сервера
+                setDiaryEntries(data);
             } else {
                 setError('Ошибка при получении записей');
             }
@@ -61,7 +69,6 @@ export function Diary() {
         }
     };
 
-    // Вызываем fetchDiaryEntries при загрузке компонента
     useEffect(() => {
         fetchDiaryEntries();
     }, []);
@@ -88,8 +95,8 @@ export function Diary() {
 
             if (response.ok) {
                 const createdEntry = await response.json();
-                setDiaryEntries([...diaryEntries, { ...createdEntry, content: newEntry.content }]); // Добавляем новую запись в массив
-                setNewEntry({ locationName: '', locationType: '' }); // Очищаем форму
+                setDiaryEntries([...diaryEntries, { ...createdEntry, content: newEntry.content }]);
+                setNewEntry({ locationName: '', locationType: '' });
             } else {
                 setError('Ошибка при создании записи');
             }
@@ -100,14 +107,13 @@ export function Diary() {
 
     return (
         <div className={css`
-            display: flex;
-            width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
         `}>
-            <div>
-                {/* Список записей в дневнике */}
+            <div className={css`
+                margin-bottom: 30px;
+            `}>
                 {diaryEntries.map((entry, index) => (
                     <DiaryEntry
                         key={index}
@@ -116,12 +122,24 @@ export function Diary() {
                     />
                 ))}
             </div>
-            <div>
-                {/* Кнопка для создания новой записи */}
+
+            <div className={css`
+                background-color: var(--bg-light);
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            `}>
+                <h3 className={css`
+                    color: var(--secondary);
+                    margin-bottom: 20px;
+                    text-align: center;
+                    font-size: 20px;
+                `}>Создать новую запись</h3>
+
                 <form onSubmit={handleSubmit} className={css`
                     display: flex;
                     flex-direction: column;
-                    gap: 10px;
+                    gap: 15px;
                 `}>
                     <input
                         type="text"
@@ -130,7 +148,17 @@ export function Diary() {
                         onChange={handleInputChange}
                         placeholder="Название места"
                         required
-                        className={css`padding: 10px;`}
+                        className={css`
+                            padding: 12px;
+                            border: 1px solid var(--border);
+                            border-radius: 4px;
+                            font-size: 16px;
+                            &:focus {
+                                outline: none;
+                                border-color: var(--primary);
+                                box-shadow: 0 0 4px var(--primary);
+                            }
+                        `}
                     />
                     <input
                         type="text"
@@ -139,13 +167,42 @@ export function Diary() {
                         onChange={handleInputChange}
                         placeholder="Тип места"
                         required
-                        className={css`padding: 10px;`}
+                        className={css`
+                            padding: 12px;
+                            border: 1px solid var(--border);
+                            border-radius: 4px;
+                            font-size: 16px;
+                            &:focus {
+                                outline: none;
+                                border-color: var(--primary);
+                                box-shadow: 0 0 4px var(--primary);
+                            }
+                        `}
                     />
-                    <Button icon={<PlusCircle />} type="submit" />
+                    <Button
+                        icon={<PlusCircle />}
+                        type="submit"
+                        className={css`
+                            padding: 12px;
+                            background-color: var(--primary);
+                            color: white;
+                            border: none;
+                            border-radius: 4px;
+                            font-size: 16px;
+                            cursor: pointer;
+                            transition: background-color 0.3s ease;
+                            &:hover {
+                                background-color: var(--primary-dark);
+                            }
+                        `}
+                    />
                 </form>
 
-                {/* Ошибки */}
-                {error && <p className={css`color: red;`}>{error}</p>}
+                {error && <p className={css`
+                    color: red;
+                    margin-top: 15px;
+                    text-align: center;
+                `}>{error}</p>}
             </div>
         </div>
     );

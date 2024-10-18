@@ -123,6 +123,8 @@ export function Diary() {
             padding: 20px;
         `}>
             <div className={css`
+                max-height: 400px;  /* Ограничиваем высоту */
+                overflow-y: auto;  /* Добавляем вертикальную прокрутку */
                 margin-bottom: 30px;
             `}>
                 {diaryEntries.map((entry, index) => (
@@ -157,7 +159,7 @@ export function Diary() {
                         name="locationName"
                         value={newEntry.locationName}
                         onChange={handleInputChange}
-                        placeholder="Название места"
+                        placeholder="Название локации"
                         required
                         className={css`
                             padding: 12px;
@@ -176,7 +178,7 @@ export function Diary() {
                         name="locationType"
                         value={newEntry.locationType}
                         onChange={handleInputChange}
-                        placeholder="Тип места"
+                        placeholder="Тип локации"
                         required
                         className={css`
                             padding: 12px;

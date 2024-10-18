@@ -3,7 +3,7 @@ import { Edit, PlusCircle } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import Button from '../components/Button/Button';
 
-function DiaryEntry({ locationName, locationType, content }) {
+function DiaryEntry({ locationName, locationType, description }) {
     return (
         <div className={css`
             margin-bottom: 20px;
@@ -29,7 +29,7 @@ function DiaryEntry({ locationName, locationType, content }) {
                     font-weight: bold;
                     font-size: 18px;
                     margin: 0;
-                `}>{locationName}</h2>
+                `}>{locationName} ({locationType})</h2>
                 <div>
                     <Button icon={<Edit />} />
                 </div>
@@ -39,12 +39,15 @@ function DiaryEntry({ locationName, locationType, content }) {
                 padding: 16px;
                 background-color: var(--bg-light);
             `}>
-                <p className={css`
-                    color: var(--secondary);
-                    margin: 0;
-                    font-size: 16px;
-                    line-height: 1.5;
-                `}>{content}</p>
+                {description && (
+                    <p className={css`
+                        color: var(--text-secondary);
+                        font-size: 14px;
+                        margin-top: 10px;
+                        line-height: 1.4;
+                        font-style: italic;
+                    `}>Описание: {description}</p>
+                )}
             </div>
         </div>
     );
@@ -52,7 +55,11 @@ function DiaryEntry({ locationName, locationType, content }) {
 
 export function Diary() {
     const [diaryEntries, setDiaryEntries] = useState([]);
-    const [newEntry, setNewEntry] = useState({ locationName: '', locationType: '' });
+    const [newEntry, setNewEntry] = useState({
+        locationName: '',
+        locationType: '',
+        description: '',
+    });
     const [error, setError] = useState('');
 
     const fetchDiaryEntries = async () => {
@@ -85,18 +92,23 @@ export function Diary() {
             const response = await fetch('https://vl-api.ru/diary_entry', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     location_name: newEntry.locationName,
-                    location_type: newEntry.locationType
-                })
+                    location_type: newEntry.locationType,
+                    description: newEntry.description,
+                }),
             });
 
             if (response.ok) {
                 const createdEntry = await response.json();
-                setDiaryEntries([...diaryEntries, { ...createdEntry, content: newEntry.content }]);
-                setNewEntry({ locationName: newEntry.locationName,});
+                setDiaryEntries([...diaryEntries, { ...createdEntry, description: newEntry.description }]);
+                setNewEntry({
+                    locationName: '',
+                    locationType: '',
+                    description: '',
+                });
             } else {
                 setError('Ошибка при создании записи');
             }
@@ -119,6 +131,7 @@ export function Diary() {
                         key={index}
                         locationName={entry.location_name}
                         locationType={entry.location_type}
+                        description={entry.description}
                     />
                 ))}
             </div>
@@ -167,6 +180,24 @@ export function Diary() {
                         onChange={handleInputChange}
                         placeholder="Тип места"
                         required
+                        className={css`
+                            padding: 12px;
+                            border: 1px solid var(--border);
+                            border-radius: 4px;
+                            font-size: 16px;
+                            &:focus {
+                                outline: none;
+                                border-color: var(--primary);
+                                box-shadow: 0 0 4px var(--primary);
+                            }
+                        `}
+                    />
+                    <textarea
+                        name="description"
+                        value={newEntry.description}
+                        onChange={handleInputChange}
+                        placeholder="Описание сюжета"
+                        rows="3"
                         className={css`
                             padding: 12px;
                             border: 1px solid var(--border);

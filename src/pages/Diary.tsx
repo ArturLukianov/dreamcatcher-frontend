@@ -29,7 +29,7 @@ function DiaryEntry({ locationName, locationType, content }) {
                     font-weight: bold;
                     font-size: 18px;
                     margin: 0;
-                `}>{locationName} ({locationType})</h2>
+                `}>{locationName}</h2>
                 <div>
                     <Button icon={<Edit />} />
                 </div>
@@ -96,7 +96,7 @@ export function Diary() {
             if (response.ok) {
                 const createdEntry = await response.json();
                 setDiaryEntries([...diaryEntries, { ...createdEntry, content: newEntry.content }]);
-                setNewEntry({ locationName: '', locationType: '' });
+                setNewEntry({ locationName: newEntry.locationName,});
             } else {
                 setError('Ошибка при создании записи');
             }

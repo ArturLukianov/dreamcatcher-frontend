@@ -1,12 +1,11 @@
 import React from "react";
-import ReactElement from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import "./style.css";
 import { css } from "@emotion/css";
 import styled from "@emotion/styled";
 import { Map, NotebookText, Waypoints } from "lucide-react";
 
-function NavbarLink(props: { to: string; text?: string; icon: ReactElement }) {
+function NavbarLink(props: { to: string; text?: string; icon: React.ReactElement }) {
   const { to, text, icon } = props;
 
   const location = useLocation();

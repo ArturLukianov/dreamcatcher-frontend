@@ -3,7 +3,7 @@ import { Edit, PlusCircle } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import Button from '../components/Button/Button';
 
-function DiaryEntry({ locationName, locationType, description }) {
+function DiaryEntry({ locationName, description }) {
     return (
         <div className={css`
             margin-bottom: 20px;
@@ -29,7 +29,7 @@ function DiaryEntry({ locationName, locationType, description }) {
                     font-weight: bold;
                     font-size: 18px;
                     margin: 0;
-                `}>{locationName} ({locationType})</h2>
+                `}>{locationName}</h2>
                 <div>
                     <Button icon={<Edit />} />
                 </div>
@@ -46,7 +46,7 @@ function DiaryEntry({ locationName, locationType, description }) {
                         margin-top: 10px;
                         line-height: 1.4;
                         font-style: italic;
-                    `}>Описание: {description}</p>
+                    `}>{description}</p>
                 )}
             </div>
         </div>
@@ -105,9 +105,8 @@ export function Diary() {
                 const createdEntry = await response.json();
                 setDiaryEntries([...diaryEntries, { ...createdEntry, description: newEntry.description }]);
                 setNewEntry({
-                    locationName: '',
-                    locationType: '',
-                    description: '',
+                    locationName: newEntry.locationName,
+                    description: newEntry.description,
                 });
             } else {
                 setError('Ошибка при создании записи');
@@ -130,7 +129,6 @@ export function Diary() {
                     <DiaryEntry
                         key={index}
                         locationName={entry.location_name}
-                        locationType={entry.location_type}
                         description={entry.description}
                     />
                 ))}

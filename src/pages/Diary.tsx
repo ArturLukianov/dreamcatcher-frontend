@@ -118,14 +118,16 @@ export function Diary() {
 
     return (
         <div className={css`
-            max-width: 600px;
+            width: 100%;
+            min-height: 100vh;
             margin: 0 auto;
             padding: 20px;
-            height: 100vh;
+            box-sizing: border-box;
             overflow-y: auto;
         `}>
             <div className={css`
-                margin-bottom: 30px;
+                max-width: 600px;
+                margin: 0 auto;
             `}>
                 {diaryEntries.map((entry, index) => (
                     <DiaryEntry
@@ -139,8 +141,11 @@ export function Diary() {
             <div className={css`
                 background-color: var(--bg-light);
                 padding: 20px;
+                margin-top: 30px;
                 border-radius: 8px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                max-width: 600px;
+                margin: 30px auto;
             `}>
                 <h3 className={css`
                     color: var(--secondary);

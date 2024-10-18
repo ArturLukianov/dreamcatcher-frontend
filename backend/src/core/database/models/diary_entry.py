@@ -7,3 +7,4 @@ class DiaryEntry(Document):
     entry_id: UUID = uuid4()
     # user_id: UUID
     location_name: str
+    description: str

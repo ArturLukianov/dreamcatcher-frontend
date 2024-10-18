@@ -121,6 +121,8 @@ export function Diary() {
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
         `}>
             <div className={css`
                 margin-bottom: 30px;

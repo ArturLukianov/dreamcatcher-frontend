@@ -17,7 +17,7 @@
         "three": "^0.168.0"
     },
     "name": "dreamcatcher",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "main": "./src/index.tsx",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",

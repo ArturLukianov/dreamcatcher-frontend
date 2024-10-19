@@ -1,12 +1,5 @@
 import * as THREE from "three";
-import {
-  Clouds,
-  Cloud,
-  PointerLockControls,
-  Sky,
-  Stats,
-  useTexture,
-} from "@react-three/drei";
+import { Clouds, Cloud, PointerLockControls, Sky, Stats, useTexture, Wireframe } from "@react-three/drei";
 import { Canvas, useLoader } from "@react-three/fiber";
 import React, { Suspense } from "react";
 import { TextureLoader } from "three";
@@ -55,15 +48,7 @@ export default function FPV() {
   return (
     <div id="fpv-canvas">
       <Suspense fallback={<Loading />}>
-        <Canvas
-          camera={{
-            fov: 80,
-            position: [0, 3, 0],
-            near: 0.001,
-            far: 100.0,
-            rotation: [0, 90, 0],
-          }}
-        >
+        <Canvas camera={{ fov: 70, position: [0, 3, 0], near: 0.001, far: 100.0, rotation: [0, 90, 0] }}>
           <PointerLockControls />
           <Sky sunPosition={[20, 20, 20]} />
 
@@ -84,7 +69,7 @@ export default function FPV() {
           <Ground />
 
           {/* Show buildings and objects */}
-          <Building position={[-10, -10]} />
+          <Building position={[-50, -50]} />
         </Canvas>
       </Suspense>
     </div>
